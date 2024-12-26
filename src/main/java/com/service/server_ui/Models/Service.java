@@ -9,8 +9,6 @@ import java.util.Map;
 
 
 @Entity
-@Data
-@NoArgsConstructor
 @Table(name = "servers")
 public class Service {
     @Id
@@ -21,8 +19,8 @@ public class Service {
     @Convert(converter = MapToJsonConverter.class)
     private Map<String, String> statusLocation;
 
-//    public Service() {
-//    }
+    public Service() {
+    }
 
     public Service(Long id, String name, Map<String, String> statusLocation) {
         this.id = id;
