@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 
 import java.util.Map;
 
-
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "servers")
 public class Service {
@@ -18,14 +20,23 @@ public class Service {
     @Column(columnDefinition = "JSON") // Ensure this matches your MySQL version
     @Convert(converter = MapToJsonConverter.class)
     private Map<String, String> statusLocation;
+    private String imageName;
+
+    private String imageType;
+    @Lob
+    @Column(name = "image", columnDefinition = "LONGBLOB") // MySQL-specific for large binary data
+    private byte[] image;
 
     public Service() {
     }
 
-    public Service(Long id, String name, Map<String, String> statusLocation) {
+    public Service(Long id, String name, Map<String, String> statusLocation, String imageName, String imageType, byte[] image) {
         this.id = id;
         this.name = name;
         this.statusLocation = statusLocation;
+        this.imageName = imageName;
+        this.imageType = imageType;
+        this.image = image;
     }
 
     public Long getId() {
@@ -50,5 +61,29 @@ public class Service {
 
     public void setStatusLocation(Map<String, String> statusLocation) {
         this.statusLocation = statusLocation;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
+    }
+
+    public String getImageType() {
+        return imageType;
+    }
+
+    public void setImageType(String imageType) {
+        this.imageType = imageType;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
